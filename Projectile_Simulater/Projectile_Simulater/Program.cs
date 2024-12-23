@@ -40,6 +40,7 @@ namespace Projectile_Simulater
         }
         static double Height(double time)
         {
+            Console.WriteLine(u * Math.Sin(angle));
             return (u*Math.Sin(angle) * time + 0.5 * a * Math.Pow(time, 2));
         }
 
