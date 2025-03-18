@@ -1,4 +1,5 @@
 from manim import *
+import random as rnd
 
 class node:
     def __init__(self, value):
@@ -6,30 +7,61 @@ class node:
         self.ln = None ##Left child node value
         self.val = value ##Value of this node.
 
-class VisualGraph(Scene):
-    
+##Create graph and create tree functions
+class CreateGraph:
+    def __init__(self, **kwargs ):
+        
+       
+        self.vertexes = []
+        self.edges = []
+        self.number_Nodes = rnd.randint(4,10)
+        self.Add_Edges()
+        self.Add_Nodes()
+
+    def Add_Edges(self):
+        for i in range(self.number_Nodes):
+            self.edges.append() = ((rnd.randint(0,self.number_Nodes-1), rnd.randint(0,self.number_Nodes-1)))
+
+    def Add_Nodes(self):
+        for i in range(self.number_Nodes):
+            self.vertexes.append(i+1)
+
+    def ReturnGraph(self):
+        return Graph(self.vertexes, self.edges,labels=True, label_fill_color=BLACK)
+
+class CreateWeightedGraph(CreateGraph):
     def __init__(self, **kwargs):
+        self.weights = []
+        super().__init__(**kwargs)
+    def Add_Edges(self):
+        self.edges.append() = (rnd.randint(0,self.number_Nodes-1), rnd.randint(0,self.number_Nodes-1))
+        self.weights.append() = rnd.randint(0,10)
+
+    def ReturnGraph(self):
+        return Graph(
+            self.vertexes,
+            self.edges,
+            layout="circular",
+            labels=True,  # Show node labels
+            edge_config={e: {"label": Text(str(self.weights[e]), font_size=24)} for e in self.edges}
+        )
+
+
+class CreateTree:
+    def __init__(self, max_Depth):
         self.edges = []
         self.vertexes = []
-        super().__init__(**kwargs)
-        
+        self.max_Depth = max_Depth
 
-    def construct(self):
-        rootNode = node(1)
-        self.new_node(1, rootNode)  # Populate the tree
-        self.traverse(rootNode) 
-        G = Graph(self.vertexes, self.edges, layout="tree", vertex_config= {"color": BLUE}, root_vertex=1,labels=True, label_fill_color=BLACK)
-        self.play(Create(G))
-        self.wait(2)
-        
     def new_node(self, depth, Vertex):
-        if depth < 4:
+        if depth < self.max_depth:
             Vertex.ln = node(2 * Vertex.val)
             Vertex.rn = node(2 * Vertex.val + 1)
             self.new_node(2*depth, Vertex.ln)
             self.new_node(2*depth+1, Vertex.rn)
         else:
             return
+        
     def traverse(self, RootNode):
             Node = RootNode
             if Node.val not in self.vertexes:
@@ -41,7 +73,29 @@ class VisualGraph(Scene):
             if Node.rn != None:
                 self.edges.append((Node.val, Node.rn.val))
                 self.traverse(Node.rn)
+
+    def Return_Tree(self):
+        self.traverse(self.vertexes[0])
+        return Graph(self.vertexes, self.edges, layout="tree", vertex_config= {"color": BLUE}, root_vertex=1,labels=True, label_fill_color=BLACK)
+        
     
 
-##Need to add the graphics now
+class VisualTree(Scene):
+    
+    def __init__(self, **kwargs):
+        self.edges = []
+        self.vertexes = []
+        super().__init__(**kwargs)
+        
+    def construct(self):
+        G = CreateTree(5)
+        self.play(Create(G.Return_Tree()))
+        self.wait(2)
+        
+    
+
+class Dijkstra(Scene): ##Should show the process of Dijkstra's shortest path.
+    pass
+
+    
     
