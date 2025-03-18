@@ -13,19 +13,26 @@ class NRMethod(Scene):
         y_range=[0, 100, 10],
         )
         ax.stroke_color = WHITE
-        self.add(ax)
-        graph = ax.plot(lambda x: x ** 2, x_range=[-10, 10], use_smoothing=False)
+        function = lambda x: x ** 2
+        graph = ax.plot(function, x_range=[-10, 10], use_smoothing=False)
         graph.stroke_color = GREEN
-        self.add(ax, graph)
-        startpoint = 9
+        self.play(Create(ax))
+        self.play(Create(graph))
+        x0 = 9
+        points=[]
         for i in range(5):
-            gradient = lambda a: 2*a 
-            plot = lambda b: b**2
-            tangent = ax.plot(lambda x: ((startpoint*x*2)- startpoint**2))
+          
+            y0 = function(x0)
+            gradient = 2*x0 # Change gradient to fit the function
+            tangent = ax.plot(lambda x: gradient*(x-x0)+y0, x_range=[-10, 10], color=random_bright_color())
             
-            self.add(tangent)
-            startpoint = (startpoint - (plot(startpoint)/gradient(startpoint)))
-
+            point = Dot(ax.c2p(x0, y0), color=YELLOW)
+            x0 = x0 - (function(x0))/gradient
+            points.append(point)
+            self.play(FadeIn(point))
+            self.play(Create(tangent), run_time=1)
+            self.wait(1)
+            
     
 
 
