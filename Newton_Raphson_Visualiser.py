@@ -1,4 +1,5 @@
-
+import manim as manim
+print(manim.__Version__)
 from manim import *
 import math
 
