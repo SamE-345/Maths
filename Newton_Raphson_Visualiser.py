@@ -1,9 +1,9 @@
-import manim as manim
-print(manim.__Version__)
+import manim
+
 from manim import *
 import math
 
-from manim import Scene, Axes, WHITE, GREEN
+from manim import Scene, Axes, WHITE, GREEN, Create
 
 class NRMethod(Scene):
     
@@ -25,12 +25,12 @@ class NRMethod(Scene):
           
             y0 = function(x0)
             gradient = 2*x0 # Change gradient to fit the function
-            tangent = ax.plot(lambda x: gradient*(x-x0)+y0, x_range=[-10, 10], color=random_bright_color())
+            tangent = ax.plot(lambda x: gradient*(x-x0)+y0, x_range=[-10, 10], color=manim.random_bright_color())
             
-            point = Dot(ax.c2p(x0, y0), color=YELLOW)
+            point = manim.Dot(ax.c2p(x0, y0), color=manim.YELLOW)
             x0 = x0 - (function(x0))/gradient
             points.append(point)
-            self.play(FadeIn(point))
+            self.play(manim.FadeIn(point))
             self.play(Create(tangent), run_time=1)
             self.wait(1)
             
