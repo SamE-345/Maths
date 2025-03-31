@@ -1,0 +1,24 @@
+{
+  "version": 11,
+  "randomSeed": "a3e31eab0280792b9e1d9d8443dd3bbb",
+  "graph": {
+    "viewport": {
+      "xmin": -14.388100869729442,
+      "ymin": -2.6242260604191614,
+      "xmax": 16.18451268248329,
+      "ymax": 16.460068869939136
+    }
+  },
+  "expressions": {
+    "list": [
+      {
+        "type": "expression",
+        "id": "1",
+        "color": "#c74440",
+        "latex": "y=x^{2}+4x+9"
+      }
+    ]
+  },
+  "includeFunctionParametersInRandomSeed": true,
+  "doNotMigrateMovablePointStyle": true
+}
