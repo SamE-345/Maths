@@ -1,3 +1,4 @@
+import manim
 from manim import *
 
 class node:
@@ -6,7 +7,7 @@ class node:
         self.ln = None ##Left child node value
         self.val = value ##Value of this node.
 
-class VisualGraph(Scene):
+class VisualGraph(manim.Scene):
     
     def __init__(self, **kwargs):
         self.edges = []
@@ -18,8 +19,8 @@ class VisualGraph(Scene):
         rootNode = node(1)
         self.new_node(1, rootNode)  # Populate the tree
         self.traverse(rootNode) 
-        G = Graph(self.vertexes, self.edges, layout="tree", vertex_config= {"color": BLUE}, root_vertex=1,labels=True, label_fill_color=BLACK)
-        self.play(Create(G))
+        G = manim.Graph(self.vertexes, self.edges, layout="tree", vertex_config= {"color": manim.BLUE}, root_vertex=1,labels=True, label_fill_color=manim.BLACK)
+        self.play(manim.Create(G))
         self.wait(2)
         
     def new_node(self, depth, Vertex):
