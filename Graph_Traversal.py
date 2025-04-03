@@ -1,3 +1,4 @@
+import manim
 from manim import *
 import random as rnd
 
