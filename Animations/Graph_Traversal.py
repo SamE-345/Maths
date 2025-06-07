@@ -28,7 +28,7 @@ class CreateGraph:
             self.vertexes.append(i+1)
 
     def ReturnGraph(self):
-        return Graph(self.vertexes, self.edges,labels=True, label_fill_color=BLACK)
+        return manim.Graph(self.vertexes, self.edges,labels=True, label_fill_color=manim.BLACK)
 
 class CreateWeightedGraph(CreateGraph):
     def __init__(self, **kwargs):
@@ -39,12 +39,12 @@ class CreateWeightedGraph(CreateGraph):
         self.weights.append() = rnd.randint(0,10)
 
     def ReturnGraph(self):
-        return Graph(
+        return manim.Graph(
             self.vertexes,
             self.edges,
             layout="circular",
             labels=True,  # Show node labels
-            edge_config={e: {"label": Text(str(self.weights[e]), font_size=24)} for e in self.edges}
+            edge_config={e: {"label": manim.Text(str(self.weights[e]), font_size=24)} for e in self.edges}
         )
 
 
@@ -77,11 +77,11 @@ class CreateTree:
 
     def Return_Tree(self):
         self.traverse(self.vertexes[0])
-        return Graph(self.vertexes, self.edges, layout="tree", vertex_config= {"color": BLUE}, root_vertex=1,labels=True, label_fill_color=BLACK)
+        return manim.Graph(self.vertexes, self.edges, layout="tree", vertex_config= {"color": manim.BLUE}, root_vertex=1,labels=True, label_fill_color=manim.BLACK)
         
     
 
-class VisualTree(Scene):
+class VisualTree(manim.Scene):
     
     def __init__(self, **kwargs):
         self.edges = []
@@ -90,12 +90,12 @@ class VisualTree(Scene):
         
     def construct(self):
         G = CreateTree(5)
-        self.play(Create(G.Return_Tree()))
+        self.play(manim.Create(G.Return_Tree()))
         self.wait(2)
         
     
 
-class Dijkstra(Scene): ##Should show the process of Dijkstra's shortest path.
+class Dijkstra(manim.Scene): ##Should show the process of Dijkstra's shortest path.
     pass
 
     
